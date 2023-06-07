@@ -89,7 +89,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
   /**
    * 从数据源中获取SqlSession对象
-   * @param execType 执行器类型
+   * @param execType 执行器类型，默认的是SIMPLE
    * @param level 事务隔离级别
    * @param autoCommit 是否自动提交事务
    * @return SqlSession对象
@@ -97,7 +97,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
   private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit) {
     Transaction tx = null;
     try {
-      // 找出要使用的指定环境
+      // 从configuration获取当前的环境，也就是配置文件中的environments标签中指定的default或者参数传递的环境
       final Environment environment = configuration.getEnvironment();
       // 从环境中获取事务工厂
       final TransactionFactory transactionFactory = getTransactionFactoryFromEnvironment(environment);

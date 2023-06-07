@@ -75,6 +75,7 @@ public class ClassLoaderWrapper {
    * @return the stream or null
    */
   public InputStream getResourceAsStream(String resource, ClassLoader classLoader) {
+//    getClassLoader()获取类加载器
     return getResourceAsStream(resource, getClassLoaders(classLoader));
   }
 
@@ -102,20 +103,21 @@ public class ClassLoaderWrapper {
   }
 
   /**
-   * Try to get a resource from a group of classloaders
+   * 通过类加载器根据路径获取文件信息
    *
-   * @param resource    - the resource to get
-   * @param classLoader - the classloaders to examine
-   * @return the resource or null
+   * @param resource    - 目标资源路径
+   * @param classLoader - 加载资源的类加载器, 类加载器具有从外部加载资源的能力
+   * @return 资源 or null
    */
   InputStream getResourceAsStream(String resource, ClassLoader[] classLoader) {
     for (ClassLoader cl : classLoader) {
       if (null != cl) {
 
-        // try to find the resource as passed
+        // 尝试查找传递的资源
         InputStream returnValue = cl.getResourceAsStream(resource);
 
         // now, some class loaders want this leading "/", so we'll add it and try again if we didn't find the resource
+//       部分类加载器期望路径以"/"开头，如果上一步获取的结果为null的话，在路径前加"/"后再次尝试，以"/"开头表示从classpath根下查找
         if (null == returnValue) {
           returnValue = cl.getResourceAsStream("/" + resource);
         }

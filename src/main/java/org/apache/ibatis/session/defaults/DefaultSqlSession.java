@@ -155,9 +155,11 @@ public class DefaultSqlSession implements SqlSession {
   @Override
   public <E> List<E> selectList(String statement, Object parameter, RowBounds rowBounds) {
     try {
-      // 获取查询语句
+      // 获取查询语句，将要执行的mappdrStatement对象从configuration对象存储的映射文件信息中找出来
+//      每一个mappedStatement对象对应设置的一个数据库操作节点，主要定义了数据库操作语句、输入/输出参数等信息。
       MappedStatement ms = configuration.getMappedStatement(statement);
       // 交由执行器进行查询
+//      是Executor中的抽象方法，实际执行的是CachingExecutor中的方法
       return executor.query(ms, wrapCollection(parameter), rowBounds, Executor.NO_RESULT_HANDLER);
     } catch (Exception e) {
       throw ExceptionFactory.wrapException("Error querying database.  Cause: " + e, e);

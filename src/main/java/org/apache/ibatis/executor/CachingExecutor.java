@@ -88,7 +88,9 @@ public class CachingExecutor implements Executor {
 
   @Override
   public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+//    BoundSql是经过层层转化后去除掉 if、where等标签的 SQL语句，而 CacheKey是为该次查询操作计算出来的缓存键。接下来流程会走到代码3-25所示的函数
     BoundSql boundSql = ms.getBoundSql(parameterObject);
+//    为本次查询计算出来的缓存键
     CacheKey key = createCacheKey(ms, parameterObject, rowBounds, boundSql);
     return query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
   }
@@ -117,6 +119,7 @@ public class CachingExecutor implements Executor {
     // 获取MappedStatement对应的缓存，可能的结果有：该命名空间的缓存、共享的其它命名空间的缓存、无缓存
     Cache cache = ms.getCache();
     // 如果映射文件未设置<cache>或<cache-ref>则，此处cache变量为null
+//    如果有缓存，从缓存中获取，没有缓存使用delegate从数据库查询
     if (cache != null) { // 存在缓存
       // 根据要求判断语句执行前是否要清除二级缓存，如果需要，清除二级缓存
       flushCacheIfRequired(ms);
@@ -135,7 +138,7 @@ public class CachingExecutor implements Executor {
         return list;
       }
     }
-    // 交由被包装的实际执行器执行
+    // 交由被包装的实际执行器执行,实际流向的是BaseExecutor中的query方法
     return delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
   }
 

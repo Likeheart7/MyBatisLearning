@@ -194,6 +194,7 @@ public abstract class BaseExecutor implements Executor {
         handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
       } else {
         // 本地缓存没有结果，故需要查询数据库
+//        真正查询数据库的方法
         list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
       }
     } finally {
@@ -384,6 +385,7 @@ public abstract class BaseExecutor implements Executor {
     // 向缓存中增加占位符，表示正在查询
     localCache.putObject(key, EXECUTION_PLACEHOLDER);
     try {
+//      进入了SimpleExecutor
       list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
     } finally {
       // 删除占位符

@@ -201,6 +201,7 @@ public class DefaultResultSetHandler implements ResultSetHandler {
   public List<Object> handleResultSets(Statement stmt) throws SQLException {
     ErrorContext.instance().activity("handling results").object(mappedStatement.getId());
     // 用以存储处理结果的列表
+//    最终查询接收到的返回值就是这个列表
     final List<Object> multipleResults = new ArrayList<>();
     // 可能会有多个结果集，该变量用来对结果集进行计数
     int resultSetCount = 0;

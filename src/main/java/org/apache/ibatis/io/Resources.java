@@ -111,6 +111,7 @@ public class Resources {
   public static InputStream getResourceAsStream(ClassLoader loader, String resource) throws IOException {
     InputStream in = classLoaderWrapper.getResourceAsStream(resource, loader);
     if (in == null) {
+//      如果没有读取到直接抛出异常
       throw new IOException("Could not find resource " + resource);
     }
     return in;

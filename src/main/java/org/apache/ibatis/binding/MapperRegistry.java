@@ -55,6 +55,8 @@ public class MapperRegistry {
   @SuppressWarnings("unchecked")
   public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
     // 找出指定映射接口的代理工厂
+//    在解析配置文件的时候，将所有的mappers标签中解析到的数据都存入了configuration类的mapperRegistry中
+//    mapperRegistry将他们存在了成员变量knowMapper中，其是一个HashMap,返回值是一个mapperFactory
     final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
     if (mapperProxyFactory == null) {
       throw new BindingException("Type " + type + " is not known to the MapperRegistry.");

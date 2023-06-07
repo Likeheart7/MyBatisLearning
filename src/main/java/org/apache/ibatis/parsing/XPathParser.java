@@ -227,6 +227,7 @@ public class XPathParser {
   }
 
   public XNode evalNode(Object root, String expression) {
+//    evaluate()调用Java提供的xml解析器对配置文件进行解析
     Node node = (Node) evaluate(expression, root, XPathConstants.NODE);
     if (node == null) {
       return null;
@@ -243,7 +244,7 @@ public class XPathParser {
    */
   private Object evaluate(String expression, Object root, QName returnType) {
     try {
-      // 对指定节点root运行解析语法expression，获得returnType类型的解析结果
+      // 对指定节点root运行解析语法expression，获得returnType类型的解析结果，调用的是Java提供的方法
       return xpath.evaluate(expression, root, returnType);
     } catch (Exception e) {
       throw new BuilderException("Error evaluating XPath.  Cause: " + e, e);

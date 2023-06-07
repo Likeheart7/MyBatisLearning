@@ -104,7 +104,7 @@ public class XMLConfigBuilder extends BaseBuilder {
       throw new BuilderException("Each XMLConfigBuilder can only be used once.");
     }
     parsed = true;
-    // 从根节点开展解析
+    // 从根节点开展解析，configuration是mybatis-config。xml的根节点
     parseConfiguration(parser.evalNode("/configuration"));
     return configuration;
   }
@@ -117,6 +117,8 @@ public class XMLConfigBuilder extends BaseBuilder {
     try {
       // 解析信息放入Configuration
       // 首先解析properties，以保证在解析其他节点时便可以生效
+//      该部分就是对mybatis-config.xml的各个节点进行解析
+//      各个方法内将解析的内容偶放到了Configuration中
       propertiesElement(root.evalNode("properties"));
       Properties settings = settingsAsProperties(root.evalNode("settings"));
       loadCustomVfs(settings);
@@ -297,8 +299,10 @@ public class XMLConfigBuilder extends BaseBuilder {
   private void environmentsElement(XNode context) throws Exception {
     if (context != null) {
       if (environment == null) {
+//        environment表示要被解析的环境，如果没有就获取在environment标签对上使用default属性指定的那个
         environment = context.getStringAttribute("default");
       }
+//     遍历所有子节点
       for (XNode child : context.getChildren()) {
         String id = child.getStringAttribute("id");
         if (isSpecifiedEnvironment(id)) {
@@ -412,15 +416,16 @@ public class XMLConfigBuilder extends BaseBuilder {
   private void mapperElement(XNode parent) throws Exception {
 
     if (parent != null) {
-      for (XNode child : parent.getChildren()) {
+       for (XNode child : parent.getChildren()) {
         // 处理mappers的子节点，即mapper节点或者package节点
+//         mappers节点中可以使用mapper标签指定对应的mapper.xml文件，也可以使用package指定映射文件所在的包
         if ("package".equals(child.getName())) { // package节点
           // 取出包的路径
           String mapperPackage = child.getStringAttribute("name");
-          // 全部加入Mappers中
+          // 解析出来的结果全部加入configuration的Mappers中
           configuration.addMappers(mapperPackage);
         } else {
-          // resource、url、class这三个属性只有一个生效
+          // 每一个标签的resource、url、class这三个属性只有一个生效
           String resource = child.getStringAttribute("resource");
           String url = child.getStringAttribute("url");
           String mapperClass = child.getStringAttribute("class");
