@@ -62,6 +62,7 @@ public class DefaultObjectFactory implements ObjectFactory, Serializable {
    * @param <T> 实例类型
    * @return 创建的实例
    */
+//  实际根据类型创建对象实例的方法
   private  <T> T instantiateClass(Class<T> type, List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
     try {
       // 构造方法
@@ -108,7 +109,7 @@ public class DefaultObjectFactory implements ObjectFactory, Serializable {
     }
   }
 
-  // 判断要创建的目标对象的类型，即如果传入的是接口则给出它的一种实现
+  // 判断要创建的目标对象的类型，即如果传入的是，接口则给出它的一种实现
   protected Class<?> resolveInterface(Class<?> type) {
     Class<?> classToCreate;
     if (type == List.class || type == Collection.class || type == Iterable.class) {

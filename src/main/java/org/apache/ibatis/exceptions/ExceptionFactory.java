@@ -18,7 +18,7 @@ package org.apache.ibatis.exceptions;
 import org.apache.ibatis.executor.ErrorContext;
 
 /**
- * @author Clinton Begin
+ * 用于生产异常类的工厂，不可实例化
  */
 public class ExceptionFactory {
 

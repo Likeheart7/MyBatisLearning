@@ -24,12 +24,14 @@ import java.util.Properties;
  * @author Clinton Begin
  * 对象工厂
  */
+//ObjectFactory 是用来创建Mybatis使用过程中需要的新对象的
 public interface ObjectFactory {
 
   /**
    * Sets configuration properties.
    * @param properties configuration properties
    */
+//  设置工厂的属性
   default void setProperties(Properties properties) {
     // NOP
   }
@@ -39,6 +41,7 @@ public interface ObjectFactory {
    * @param type Object type
    * @return
    */
+//  传入一个类型， 采用无参构造的方式创建该类型的对象实例
   <T> T create(Class<T> type);
 
   /**
@@ -48,6 +51,7 @@ public interface ObjectFactory {
    * @param constructorArgs Constructor argument values
    * @return
    */
+//  传入一个类型，一个参数列表，一个参数值列表，匹配对应的有参构造函数生成该类型的对象实例
   <T> T create(Class<T> type, List<Class<?>> constructorArgTypes, List<Object> constructorArgs);
 
   /**
@@ -58,6 +62,7 @@ public interface ObjectFactory {
    * @return whether it is a collection or not
    * @since 3.1.0
    */
+//  判断传入的类型是否为集合类
   <T> boolean isCollection(Class<T> type);
 
 }
