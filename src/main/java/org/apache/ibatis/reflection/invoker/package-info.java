@@ -14,6 +14,6 @@
  *    limitations under the License.
  */
 /**
- * Unused.
+ * invoker包，主要用于封装反射实现的对成员变量的读写操作和方法的调用操作。
  */
 package org.apache.ibatis.reflection.invoker;

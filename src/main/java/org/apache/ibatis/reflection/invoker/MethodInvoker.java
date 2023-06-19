@@ -25,7 +25,7 @@ import org.apache.ibatis.reflection.Reflector;
  */
 public class MethodInvoker implements Invoker {
 
-  // 传入参数或者传出参数类型
+  // 传入参数或者传出参数类型， 有且只有一个入参是表示的是入参的类型，否则表示的是方法的返回类型
   private final Class<?> type;
   private final Method method;
 
@@ -37,7 +37,7 @@ public class MethodInvoker implements Invoker {
     this.method = method;
 
     if (method.getParameterTypes().length == 1) {
-      // 有且只有一个入参时，这里放入入参
+      // 有且只有一个入参时，这里放入入参。否则放返回类型
       type = method.getParameterTypes()[0];
     } else {
       type = method.getReturnType();
@@ -50,6 +50,7 @@ public class MethodInvoker implements Invoker {
     try {
       return method.invoke(target, args);
     } catch (IllegalAccessException e) {
+//      canControlMemberAccessible()用于检验是否可以控制成员的访问性
       if (Reflector.canControlMemberAccessible()) {
         method.setAccessible(true);
         return method.invoke(target, args);

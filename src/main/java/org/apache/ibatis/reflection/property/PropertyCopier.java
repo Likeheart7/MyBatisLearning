@@ -56,10 +56,16 @@ public final class PropertyCopier {
           }
         } catch (Exception e) {
           // Nothing useful to do, will only fail on final fields, which will be ignored.
+//          只有在给final修饰的成员变量拷贝值时才会来到这里，可以忽略
         }
       }
+//      当前类的属性拷贝完之后，将parent转为其父类，对其从父类继承的属性进行拷贝，直到父类为null(Object父类为null)
       parent = parent.getSuperclass();
     }
   }
 
+  public static void main(String[] args) {
+    System.out.println(String.class.getSuperclass());   //java.lang.Object
+    System.out.println(Object.class.getSuperclass());   // null
+  }
 }

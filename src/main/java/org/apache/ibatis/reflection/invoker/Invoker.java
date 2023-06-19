@@ -23,6 +23,6 @@ import java.lang.reflect.InvocationTargetException;
 public interface Invoker {
   // 方法执行调用器
   Object invoke(Object target, Object[] args) throws IllegalAccessException, InvocationTargetException;
-  // 传入参数或者传出参数的类型（如有一个入参就是入参，否则是出参）
+  // 成员变量的类型。方法只有一个入参时的参数类型，或方法的返回类型
   Class<?> getType();
 }

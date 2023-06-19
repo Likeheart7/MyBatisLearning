@@ -15,5 +15,8 @@
  */
 /**
  * Object wrappers.
+ * 使用装饰器模式对各种类型的对象(包括Bean对象、集合对象、Map对象)进行封装，为其增加一些功能，便于使用。
+ * 包括抽象类BaseWrapper和其三个子类BeanWrapper, CollectionWrapper，MapWrapper；以及对象包装器工厂。
+ *
  */
 package org.apache.ibatis.reflection.wrapper;

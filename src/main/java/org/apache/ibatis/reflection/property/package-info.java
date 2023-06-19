@@ -15,5 +15,6 @@
  */
 /**
  * Tools for getting/setting properties
+ * 针对成员变量操作的工具包
  */
 package org.apache.ibatis.reflection.property;

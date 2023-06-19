@@ -28,7 +28,10 @@ import java.util.Iterator;
  *
  * 该属性标记器只能处理一级，即点后面的都作为children
  */
+// 属于是一个属性分词器，将变量名、索引名、成员变量名都拆分出来
 public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
+
+//  student[sId].name在经过本类处理后各个属性值如下：
 
   // student
   private String name;
@@ -41,16 +44,19 @@ public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
 
   public PropertyTokenizer(String fullname) {
     int delim = fullname.indexOf('.');
+//    有. 说明存在name和children
     if (delim > -1) {
       name = fullname.substring(0, delim);
       children = fullname.substring(delim + 1);
     } else {
+//      没有. 说明没有children
       name = fullname;
       children = null;
     }
     indexedName = name;
     delim = name.indexOf('[');
     if (delim > -1) {
+//      有[ 说明还要有index
       index = name.substring(delim + 1, name.length() - 1);
       name = name.substring(0, delim);
     }

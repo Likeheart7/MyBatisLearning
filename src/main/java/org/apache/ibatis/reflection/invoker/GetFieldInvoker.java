@@ -55,6 +55,7 @@ public class GetFieldInvoker implements Invoker {
   }
 
   @Override
+//  返回该成员变量的类型
   public Class<?> getType() {
     return field.getType();
   }

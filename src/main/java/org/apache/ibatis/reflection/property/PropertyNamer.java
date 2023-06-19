@@ -26,20 +26,24 @@ import org.apache.ibatis.reflection.ReflectionException;
 public final class PropertyNamer {
 
   private PropertyNamer() {
+//    私有化工具类的构造器
     // Prevent Instantiation of Static Class
   }
 
   // 将方法名转化为属性名
   public static String methodToProperty(String name) {
+//    如果以is开头(布尔类型的Getter)去除前两位，get/set去除前三位
     if (name.startsWith("is")) {
       name = name.substring(2);
     } else if (name.startsWith("get") || name.startsWith("set")) {
       name = name.substring(3);
     } else {
+//      不是is/get/set开头的说明不是属性的getter/setter方法，抛出异常
       throw new ReflectionException("Error parsing property name '" + name + "'.  Didn't start with 'is', 'get' or 'set'.");
     }
 
-    // 将方法名中属性的大小写修改正确
+    // 将方法名中属性的大小写修改正确(将首字母改回小写)
+//    判断条件是如果变量名只有1位，或多位时第二位字母为小写(说明和第一个字母属于同一个单词，不明白为什么第二个字母大写就可以？？)
     if (name.length() == 1 || (name.length() > 1 && !Character.isUpperCase(name.charAt(1)))) {
       name = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
     }
@@ -52,6 +56,7 @@ public final class PropertyNamer {
     return isGetter(name) || isSetter(name);
   }
 
+//  通过是不是get/is开头且长度大于3来判断是否时getter方法
   public static boolean isGetter(String name) {
     return (name.startsWith("get") && name.length() > 3) || (name.startsWith("is") && name.length() > 2);
   }
