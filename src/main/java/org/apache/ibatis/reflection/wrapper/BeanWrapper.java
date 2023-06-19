@@ -28,6 +28,7 @@ import org.apache.ibatis.reflection.property.PropertyTokenizer;
 
 /**
  * @author Clinton Begin
+ * 包含了一个bean的对象信息、类信息，并提供了更多的功能
  */
 public class BeanWrapper extends BaseWrapper {
 
@@ -35,6 +36,8 @@ public class BeanWrapper extends BaseWrapper {
   private final Object object;
   // 被包装对象所属类的元类
   private final MetaClass metaClass;
+
+//  还有一个继承自父类的protected final MetaObject metaObject;该属性是被包装对象的元对象
 
   public BeanWrapper(MetaObject metaObject, Object object) {
     super(metaObject);

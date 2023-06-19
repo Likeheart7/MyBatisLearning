@@ -20,6 +20,7 @@ import org.apache.ibatis.reflection.ReflectionException;
 
 /**
  * @author Clinton Begin
+ * 没有实现父接口的任何功能，调用getWrapperFor方法时会抛出异常
  */
 public class DefaultObjectWrapperFactory implements ObjectWrapperFactory {
 

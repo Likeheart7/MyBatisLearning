@@ -19,6 +19,8 @@ import org.apache.ibatis.reflection.MetaObject;
 
 /**
  * @author Clinton Begin
+ * 对象包装器工厂的接口，默认实现为DefaultObjectWrapperFactory，但是该实现没有实现任何功能，调用该默认实现的getWrapperFor方法时会抛出异常
+ * 用户可以通过配置文件的objectWrapperFactory节点注入新的ObjectWrapperFactory
  */
 public interface ObjectWrapperFactory {
 
