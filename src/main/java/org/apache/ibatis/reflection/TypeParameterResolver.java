@@ -27,6 +27,7 @@ import java.util.Arrays;
 
 /**
  * @author Iwao AVE!
+ * 泛型解释器，用来判断泛型实际上的返回结果是什么
  */
 public class TypeParameterResolver {
 

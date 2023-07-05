@@ -35,7 +35,7 @@ public class DemoApplication {
             User userParam = new User();
             userParam.setSchoolName("Sunny School");
             // 调用接口展开数据库操作，已经是代理类来操作了，会进入代理类的invoke方法，在此处就是MapperProxy.invoke
-            List<User> userList = userMapper.queryUserBySchoolName(userParam);
+            List<User> userList = userMapper.queryUserBySchoolName("chen", 19, userParam);
             // 打印查询结果
             for (User user : userList) {
                 System.out.println("name : " + user.getName() + " ;  email : " + user.getEmail());
