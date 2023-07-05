@@ -9,8 +9,8 @@ import java.lang.reflect.Proxy;
 public class DynamicProxyExample {
     public static void main(String[] args) {
         ExampleImplement ex = new ExampleImplement();
-        ExampleProxy proxy = new ExampleProxy();
+        ExampleProxy<ExampleInterface> proxy = new ExampleProxy<>(ex);
         ExampleInterface proxyInstance = (ExampleInterface) Proxy.newProxyInstance(ExampleImplement.class.getClassLoader(), new Class[]{ExampleInterface.class}, proxy);
-        proxyInstance.say("陈生");
+        proxyInstance.say("123");
     }
 }
